@@ -2,9 +2,11 @@ require 'nokogiri'
 require 'open-uri'
 require 'histogram/array'
 require 'ascii_charts'
+require './Enumerables.rb'
 class Scraper
-  def initialize(url='')
-    #@doc = Nokogiri::HTML(URI.open(url),Encoding::UTF_8.to_s)
+  def initialize(search_item)
+    base_url = 
+    #@doc = Nokogiri::HTML(URI.open(url))
   end
 
   def get_price_arr(doc)
@@ -16,9 +18,12 @@ class Scraper
   def get_total_price_arr(price)
   end
 
-  def price_sanitizer(price)
-    result = price.text.strip.sub!('Â','').gsub!("COP", "").gsub!(/[$,]/,'').gsub!(/\s+/, '').delete!("\u00A0")
-    return result
+  def data_sanitizer(data)
+    i = 0
+    for i in 0...data.length
+      data[i].text.delete('^0-9.')
+    end
+    return data
   end
 
   def convert_to_f(arr)
@@ -28,30 +33,12 @@ class Scraper
     return arr
   end
 
-  def mean(arr)
-    return arr.sum / arr.length
-  end
 
-  def median(prices)
-    prices = prices.sort
-    if prices.length.odd?
-      return prices[prices.length/2].to_f
-    else
-      return ((prices[prices.length/2]+prices[(prices.length/2)-1])/2).to_f
-    end
-  end
 
-  def sample_stdev(prices)
-    x = mean(prices)
-    sum_squares = 0
-    prices.each {|el| sum_squares += (el - x)**2}
-    sample_variance = sum_squares / (prices.length - 1)
-    return Math.sqrt(sample_variance)
-  end
 
-  def max_min(prices)
-    return prices.min, prices.max
-  end
+
+
+
 
 =begin
   def calculate_bins(prices)
@@ -82,11 +69,12 @@ class Scraper
   end
 end
 prices = Array.new(200) { rand(1...200) }
+puts "The mean is: #{prices.mean}"
 puts "Prices are: #{prices}"
  new_scraper = Scraper.new
- puts "Median: #{new_scraper.median(prices)}"
- puts "Mean: #{new_scraper.mean(prices)}"
- puts "Stdev: #{new_scraper.sample_stdev(prices)}"
+ puts "Median: #{prices.median}"
+ puts "Mean: #{prices.mean}"
+ puts "Stdev: #{prices.sample_stdev}"
  puts "The histogram is: "
  #puts new_scraper.calculate_bins(prices)
  #num_bins = new_scraper.calculate_bins(prices)
