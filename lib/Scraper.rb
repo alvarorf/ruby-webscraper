@@ -6,13 +6,12 @@ require './Enumerables.rb'
 require './lib/main_logic.rb'
 class Scraper
   attr_accessor @doc, @price, @shipping, @total
-  def initialize(search, lh_fs=0, custom = 0, lh_item_condition, min_price=0, max_price=999999999)
-    if custom == 1
-      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{lh_item_condition}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
+  def initialize(search, lh_fs=0, cust = 0, lh_item_condition, min_price=0, max_price=999999999)
+    if cust == 1
+      url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{lh_item_condition}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
     else
-      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}"
+      url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}"
     end
-      base_url='https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}'
     @doc = Nokogiri::HTML(URI.open(url))
   end
 
@@ -27,7 +26,6 @@ class Scraper
   end
 
   def get_total_price_arr
-    @
   end
 
   def clean_data(data)
@@ -36,6 +34,9 @@ class Scraper
       data[i].text.delete('^0-9.')
     end
     return data
+  end
+
+  def compact_data
   end
 
   def convert_to_f(arr)
@@ -51,22 +52,20 @@ class Scraper
     return bins.zip(freqs)
   end
 
-  def plot_histogram
+  def show_7_number_summary(data)
+    puts "Min: #{data.min}"
+    puts "Q1: #{data.find_perc(0.25)}"
+    puts "Median: #{data.find_perc(0.5)}"
+    puts "Mean: #{data.mean}"
+    puts "Stdev: #{data.sample_stdev}"
+    puts "Q3: #{data.find_perc(0.75)}"
+    puts "Max: #{data.max}"
+  end
+
+  def plot_histogram(data)
+    (bins, freqs) = data.histogram
+    bins_freqs = new_scraper.prepare_histogram_array(bins, freqs)
+    my_chart = AsciiCharts::Cartesian.new(bins_freqs)
+    my_chart.draw
   end
 end
-prices = Array.new(200) { rand(1...200) }
-puts "The mean is: #{prices.mean}"
-puts "Prices are: #{prices}"
- new_scraper = Scraper.new
- puts "Median: #{prices.median}"
- puts "Mean: #{prices.mean}"
- puts "Stdev: #{prices.sample_stdev}"
- puts "The histogram is: "
- #puts new_scraper.calculate_bins(prices)
- #num_bins = new_scraper.calculate_bins(prices)
- (bins, freqs) = prices.histogram
- my_arr = new_scraper.prepare_histogram_array(bins, freqs)
- puts "The bins and freqs are: "
- puts bins, freqs
- my_chart = AsciiCharts::Cartesian.new(my_arr)
- my_chart.draw

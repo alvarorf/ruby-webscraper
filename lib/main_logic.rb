@@ -103,7 +103,7 @@ require 'cgi'
       else
         lh_item_condition = '0|1000|1500|2000|2500|3000|7000'
     end
-    return lh_fs, lh_item_condition, choice_price_range, min_price, max_price
+    return lh_fs, lh_item_condition, min_price, max_price
   end
 
 map_customized_options
