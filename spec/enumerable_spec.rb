@@ -1,4 +1,4 @@
-require '../lib/Enumerable.rb'
+require '../lib/enumerable.rb'
 describe Enumerable do
   describe '#mean' do
     let(:new_arr) { [1, 6, 8, 10, 15] }
@@ -12,10 +12,10 @@ describe Enumerable do
     it 'The percentile 50 should be equal to the median of the data(9.5)' do
       expect(new_arr.find_perc(0.5)).to eql(9.5)
     end
-    it 'The percentile 25(Q1) should be equal to the median (perc. 50) of the first half of data(9.5)' do
+    it 'The percentile 25(Q1) should be equal to the median (perc. 50) of the first half of the data(9.5)' do
       expect(new_arr.find_perc(0.25)).to eql([1, 2, 3, 4, 5, 6, 7, 8, 9].find_perc(0.5))
     end
-    it 'The percentile 75(Q3) should be equal to the median (perc. 50) of the second half of data(9.5)' do
+    it 'The percentile 75(Q3) should be equal to the median (perc. 50) of the second half of the data(9.5)' do
       expect(new_arr.find_perc(0.75)).to eql([10, 11, 12, 13, 14, 15, 16, 17, 18].find_perc(0.5))
     end
   end

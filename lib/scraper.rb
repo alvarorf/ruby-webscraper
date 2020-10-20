@@ -1,52 +1,48 @@
 require 'nokogiri'
 require 'open-uri'
 require 'histogram/array'
-require 'ascii_charts'
-require './Enumerables.rb'
-require './lib/main_logic.rb'
+# require 'ascii_charts'
+# require './enumerable.rb'
+# require './main_logic.rb'
 
 class Scraper
-  attr_accessor @doc, @price, @shipping, @total
-  def initialize(search, lh_fs=0, cust = 0, lh_item_condition, min_price=0, max_price=999999999)
-    if cust == 1
-      url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{lh_item_condition}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
-    else
-      url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}"
-    end
+  #attr_accessor @doc, @price, @shipping, @total
+  def initialize(search, lh_fs, cust, item_cond, price_low, price_high)
+    base_url = 'https://www.ebay.com/sch/i.html?_ipg=200'
+    cust_search = "&LH_ItemCondition=#{item_cond}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}"
+    standard_search = '&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15'
+    keywords = "&_nkw=#{search}"
+    min_max_price = "&_udlo=#{price_low}&_udhi=#{price_high}"
+    item_cond = "&LH_ItemCondition=#{item_cond}"
+    shipping = "&LH_FS=#{lh_fs}"
+    url = (cust == 1 ? base_url.concat(cust_search, keywords) : base_url.concat(standard_search, keywords))
     @doc = Nokogiri::HTML(URI.open(url))
   end
 
-  def get_price_arr
+  def price_arr
     @price = doc.xpath("//span[@class='s-item__price']")
     return clean_data(@price)
   end
 
-  def get_shipping_arr
+  def shipping_arr
     @shipping = doc.xpath("//span[@class='s-item__shipping s-item__logisticsCost']")
     return clean_data(@shipping)
   end
 
-  def get_total_price_arr
-  end
-
   def clean_data(data)
     i = 0
-    for i in 0...data.length
-      data[i].text.delete('^0-9.')
-    end
+    data.each { data[i].text.delete('^0-9.') }
     return data
   end
 
   def convert_to_f(arr)
-    for i in 0...arr.length
-      arr[i] = arr[i].to_f
-    end
+    arr.each { arr[i] = arr[i].to_f }
     return arr
   end
 
   def prepare_histogram_array(bins, freqs)
-    bins.each{|el| el.round(2)}
-    freqs.each{|el| el.round(2)}
+    bins.each { |el| el.round(2) }
+    freqs.each { |el| el.round(2) }
     return bins.zip(freqs)
   end
 

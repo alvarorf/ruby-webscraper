@@ -1,17 +1,13 @@
 module Enumerable
   def mean
-      return sum / length
+    return sum / length
   end
 
   def find_perc(perc)
     n = length
     index = perc * n
     data = sort
-    if (index % 1) != 0
-      result = data[index.round - 1].to_f
-    else
-      result = (data[index - 1].to_f + data[index].to_f) / 2
-    end
+    result = ((index % 1) != 0 ? data[index.round - 1].to_f : (data[index - 1].to_f + data[index].to_f) / 2)
   end
 
   def sample_stdev

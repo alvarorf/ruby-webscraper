@@ -2,7 +2,7 @@ require 'cgi'
 require 'nokogiri'
 require 'open-uri'
 require '../lib/main_logic.rb'
-require '../lib/Scraper.rb'
+require '../lib/scraper.rb'
 
 puts 'Welcome to my Ebay Web Scraper.'
 print 'Please enter the name of the item that you want to search: '
@@ -11,7 +11,7 @@ search = CGI.escape(search)
 puts 'Would you like to perform a standard search (0) or a customized search(1)?'
 cust = validate_search_type(gets.chomp)
 if cust.zero?
-  normal_search = Scraper.new(search)
+  normal_search = Scraper.new(search, cust = 0)
 else
   lh_fs, lh_item_condition, min_price, max_price = map_customized_options
   custom_search = Scraper.new(search, lh_fs, lh_item_condition, min_price, max_price)

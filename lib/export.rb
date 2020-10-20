@@ -5,13 +5,13 @@ require 'csv'
 print "Spreadsheet Test\n"
 
 # Create the rows to be inserted
-tags = ['id', 'ebay_id' 'prices', 'shipping', 'item_name']
+tags = %w[id ebay_id prices shipping item_name]
 
 # Create a new Workbook
 new_book = Spreadsheet::Workbook.new
 
 # Create the worksheet
-new_book.create_worksheet :name => 'data_1'
+new_book.create_worksheet name: 'data_1'
 
 # Add row_1
 new_book.worksheet(0).insert_row(0, tags)
