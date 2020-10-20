@@ -21,8 +21,8 @@ describe Enumerable do
   end
 
   describe '#sample_stdev' do
-  let(:new_arr) { [1, 1, 1, 1, 1] }
-  let(:example) {[3, 6, 9]}
+    let(:new_arr) { [1, 1, 1, 1, 1] }
+    let(:example) { [3, 6, 9] }
     it 'Should be zero (0.0) if the elements in the array are identical' do
       expect(new_arr.sample_stdev).to eql(0.0)
     end

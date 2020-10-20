@@ -4,6 +4,7 @@ require 'histogram/array'
 require 'ascii_charts'
 require './Enumerables.rb'
 require './lib/main_logic.rb'
+
 class Scraper
   attr_accessor @doc, @price, @shipping, @total
   def initialize(search, lh_fs=0, cust = 0, lh_item_condition, min_price=0, max_price=999999999)
@@ -34,9 +35,6 @@ class Scraper
       data[i].text.delete('^0-9.')
     end
     return data
-  end
-
-  def compact_data
   end
 
   def convert_to_f(arr)
