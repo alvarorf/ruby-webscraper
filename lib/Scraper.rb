@@ -3,22 +3,35 @@ require 'open-uri'
 require 'histogram/array'
 require 'ascii_charts'
 require './Enumerables.rb'
+require './lib/main_logic.rb'
 class Scraper
-  def initialize(search_item)
-    base_url = 
-    #@doc = Nokogiri::HTML(URI.open(url))
+  attr_accessor @doc, @price, @shipping, @total
+  def initialize(base_url='',search, custom = 0, delivery_options, item_cond, price_low=0, price_high=999999999, delivery_options=0)
+    if custom == 1
+      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{item_cond}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
+    else
+      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}"
+    end
+      base_url='https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}'
+    base_url =
+    @doc = Nokogiri::HTML(URI.open(url))
   end
 
-  def get_price_arr(doc)
+  def get_price_arr
+    @price = doc.xpath("//span[@class='s-item__price']")
+    return clean_data(@price)
   end
 
-  def get_shipping_arr(doc)
+  def get_shipping_arr
+    @shipping = doc.xpath("//span[@class='s-item__shipping s-item__logisticsCost']")
+    return clean_data(@shipping)
   end
 
-  def get_total_price_arr(price)
+  def get_total_price_arr
+    @
   end
 
-  def data_sanitizer(data)
+  def clean_data(data)
     i = 0
     for i in 0...data.length
       data[i].text.delete('^0-9.')
@@ -33,39 +46,13 @@ class Scraper
     return arr
   end
 
-
-
-
-
-
-
-
-=begin
-  def calculate_bins(prices)
-    mid = median(prices)
-    n = prices.length
-    if prices.length.even?
-      subarray1 = prices[0..((n/2)-1)]
-      subarray2 = prices[((n/2))..-1]
-    else
-      subarray1 = prices[0..((n/2))]
-      subarray2 = prices[((prices.length/2))..-1]
-    end
-    q1 = median(subarray1)
-    q3 = median(subarray2)
-    iqr = q3 - q1
-    h = 2*iqr*(n**(1/3))
-    puts "h is: #{h}"
-    puts "prices.max is : #{prices.max}"
-    puts "prices.min is : #{prices.min}"
-    return ((prices.max - prices.min) / h).round
-  end
-=end
-
   def prepare_histogram_array(bins, freqs)
     bins.each{|el| el.round(2)}
     freqs.each{|el| el.round(2)}
     return bins.zip(freqs)
+  end
+
+  def plot_histogram
   end
 end
 prices = Array.new(200) { rand(1...200) }

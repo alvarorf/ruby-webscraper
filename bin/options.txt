@@ -1,0 +1,18 @@
+items_per_page = '_ipg=25, _ipg=50, _ipg=200'
+# &_sop=15 #Price + Shipping: Lowest First
+#page_number = '_pgn=2'
+best_match_newly_listed = '_sop=10'
+delivery_options_any = 'LH_FS=0'
+delivery_options_free_international_shipping = 'LH_FS=1'
+item_condition_not_specified ='LH_ItemCondition=0'
+auction = 'LH_Auction=1'
+buy_it_now = 'LH_BIN=1'
+item_condition_new = 'LH_ItemCondition=1000'
+item_condition_open_box = 'LH_ItemCondition=1500'
+item_condition_certified_refurbished = 'LH_ItemCondition=2000'
+item_condition_seller_refurbished = 'LH_ItemCondition=2500'
+item_condition_used = 'LH_ItemCondition=3000'
+item_condition_for_parts_or_not_working = 'LH_ItemCondition=7000'
+item_condition_any = 'LH_ItemCondition=0|1000|1500|2000|2500|3000|7000'
+
+show_seller_name = '&_fcse=10|42|43'

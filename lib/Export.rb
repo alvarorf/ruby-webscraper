@@ -18,12 +18,20 @@ new_book.create_worksheet :name => 'data_1'
 new_book.worksheet(0).insert_row(0, tags)
 
 # Write the file
-#Dir.mkdir('../exports')
-#new_book.write('../exports/test.xls')
+if Dir.exists?('../exports')
+  puts "In here..."
+  new_book.write('../exports/test.xls')
+else
+  puts "Now, around here..."
+  Dir.mkdir('../exports')
+  new_book.write('../exports/test.xls')
+end
+
+
 
 
 require 'csv'
-CSV.open("myfile.csv", "w") do |csv|
+CSV.open("../exports/myfile.csv", "w") do |csv|
   csv << ["row", "of", "CSV", "data"]
   csv << ["another", "row"]
   # ...
