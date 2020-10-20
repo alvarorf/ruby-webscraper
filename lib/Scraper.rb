@@ -6,14 +6,13 @@ require './Enumerables.rb'
 require './lib/main_logic.rb'
 class Scraper
   attr_accessor @doc, @price, @shipping, @total
-  def initialize(base_url='',search, custom = 0, delivery_options, item_cond, price_low=0, price_high=999999999, delivery_options=0)
+  def initialize(search, lh_fs=0, custom = 0, lh_item_condition, min_price=0, max_price=999999999)
     if custom == 1
-      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{item_cond}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
+      base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=#{lh_item_condition}&LH_FS=#{delivery_options}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}&_nkw=#{search}"
     else
       base_url = "https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}"
     end
       base_url='https://www.ebay.com/sch/i.html?_ipg=200&_fcse=10|42|43&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15&_nkw=#{search}'
-    base_url =
     @doc = Nokogiri::HTML(URI.open(url))
   end
 
