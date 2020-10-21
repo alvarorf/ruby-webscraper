@@ -9,7 +9,8 @@ def validate_search_keywords(keywords)
 end
 
 def validate_search_type(search_type)
-  while search_type != 0 || search_type != 1
+  ops = [0, 1]
+  unless ops.include?(search_type.to_i)
     print 'Please enter a valid search type. 0: Standard 1: Customized'
     search_type = gets.chomp
   end
@@ -96,6 +97,11 @@ def map_customized_options
                       else '0|1000|1500|2000|2500|3000|7000'
                       end
   return lh_fs, lh_item_condition, min_price, max_price
+end
+
+def processing
+  puts 'Processing the data...'
+  sleep(2.0)
 end
 
 # map_customized_options

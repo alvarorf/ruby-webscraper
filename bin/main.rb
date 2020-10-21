@@ -8,13 +8,16 @@ puts 'Welcome to my Ebay Web Scraper.'
 print 'Please enter the name of the item that you want to search: '
 search = validate_search_keywords(gets.chomp)
 search = CGI.escape(search)
+puts "Search is...#{search}"
 puts 'Would you like to perform a standard search (0) or a customized search(1)?'
-cust = validate_search_type(gets.chomp)
+cust = validate_search_type(gets.chomp.to_i)
 if cust.zero?
-  normal_search = Scraper.new(search, cust = 0)
+  normal_search = Scraper.new(search, lh_fs = 0, cust = 0, item_cond = 0, price_low = 0, price_high = 999_999_999)
+  normal_search.show_stats
 else
   lh_fs, lh_item_condition, min_price, max_price = map_customized_options
   custom_search = Scraper.new(search, lh_fs, lh_item_condition, min_price, max_price)
+  custom_search.show_stats
 end
 
 # price = doc.xpath("//span[@class='s-item__price']")
@@ -28,7 +31,6 @@ end
 # s-item__hotness s-item__itemHotness
 # other_info = doc.xpath("//div[@class='s-item__subtitle']")
 # shipping = doc.at("s-item__price")
-# puts shipping.is_a? Array
 # puts "The price is: #{price}"
 # class_name = 's-item__shipping '
 # puts "Before..."
