@@ -8,11 +8,11 @@ puts 'Welcome to my Ebay Web Scraper.'
 print 'Please enter the name of the item that you want to search: '
 search = validate_search_keywords(gets.chomp)
 search = CGI.escape(search)
-puts "Search is...#{search}"
 puts 'Would you like to perform a standard search (0) or a customized search(1)?'
 cust = validate_search_type(gets.chomp.to_i)
 if cust.zero?
   normal_search = Scraper.new(search, lh_fs = 0, cust = 0, item_cond = 0, price_low = 0, price_high = 999_999_999)
+  puts "Hey... normal_search.doc is: #{normal_search.doc}"
   normal_search.show_stats
 else
   lh_fs, lh_item_condition, min_price, max_price = map_customized_options

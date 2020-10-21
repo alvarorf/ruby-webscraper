@@ -9,8 +9,8 @@ require '../lib/enumerable.rb'
 # require './main_logic.rb'
 
 class Scraper
-  attr_accessor :doc, :price, :shipping
-  # @price, @shipping, @total
+  attr_reader :doc, :shipping
+  attr_accessor :price
   def initialize(search, lh_fs, cust, price_low, price_high, item_cond = 0)
     base_url = 'https://www.ebay.com/sch/i.html?_ipg=200'
     cust_search = "&LH_ItemCondition=#{item_cond}&LH_FS=#{lh_fs}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}"
