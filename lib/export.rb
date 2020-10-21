@@ -24,6 +24,6 @@ end
 new_book.write('../exports/test.xls')
 
 CSV.open('../exports/myfile.csv', 'w') do |csv|
-  csv << ['row', 'of', 'CSV', 'data']
-  csv << ['another', 'row']
+  csv << %w[row of CSV data]
+  csv << %w[another row]
 end
