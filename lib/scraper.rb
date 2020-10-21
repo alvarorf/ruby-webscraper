@@ -17,11 +17,19 @@ class Scraper
     standard_search = '&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15'
     keywords = "&_nkw=#{search}"
     min_max_price = "&_udlo=#{price_low}&_udhi=#{price_high}"
-    # item_cond = "&LH_ItemCondition=#{item_cond}"
-    # shipping = "&LH_FS=#{lh_fs}"
     url = (cust == 1 ? base_url.concat(cust_search, keywords) : base_url.concat(standard_search, keywords))
     @doc = Nokogiri::HTML(URI.open(url))
   end
+
+  def show_stats
+    data = price_and_shipping
+    puts 'A statistical summary of the data is shown: '
+    show_7_number_summary(data)
+    puts 'A histogram of the data is shown: '
+    plot_histogram(data)
+  end
+
+  private
 
   def price_arr
     @price = @doc.xpath("//span[@class='s-item__price']")
@@ -63,18 +71,7 @@ class Scraper
   def price_and_shipping
     @price = price_arr
     @shipping = shipping_arr
-
-    # nums = [@price, @shipping]
-    # return nums.transpose.map(&:sum)
     return @price.zip(@shipping.cycle).map(&:sum)
-  end
-
-  def show_stats
-    data = price_and_shipping
-    puts 'A statistical summary of the data is shown: '
-    show_7_number_summary(data)
-    puts 'A histogram of the data is shown: '
-    plot_histogram(data)
   end
 
   def clean_data(data)
@@ -82,18 +79,18 @@ class Scraper
   end
 
   def prepare_histogram_array(bins, freqs)
-    bins.each { |el| el.round(2) }
-    freqs.each { |el| el.round(2) }
+    bins = bins.map { |el| el.round(1) }
+    freqs = freqs.map { |el| el.round(1) }
     return bins.zip(freqs)
   end
 
   def show_7_number_summary(data)
     puts "Min: #{data.min}"
-    # puts "Q1: #{data.find_perc(0.25)}"
-    # puts "Median: #{data.find_perc(0.5)}"
+    puts "Q1: #{data.find_perc(0.25)}"
+    puts "Median: #{data.find_perc(0.5)}"
     puts "Mean: #{data.mean}"
     puts "Stdev: #{data.sample_stdev}"
-    # puts "Q3: #{data.find_perc(0.75)}"
+    puts "Q3: #{data.find_perc(0.75)}"
     puts "Max: #{data.max}"
   end
 
@@ -101,6 +98,6 @@ class Scraper
     (bins, freqs) = data.histogram
     bins_freqs = prepare_histogram_array(bins, freqs)
     my_chart = AsciiCharts::Cartesian.new(bins_freqs)
-    my_chart.draw
+    puts my_chart.draw
   end
 end

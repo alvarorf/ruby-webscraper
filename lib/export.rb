@@ -17,9 +17,7 @@ new_book.create_worksheet name: 'data_1'
 new_book.worksheet(0).insert_row(0, tags)
 
 # Write the file
-unless Dir.exist?('../exports')
-  Dir.mkdir('../exports')
-end
+Dir.mkdir('../exports') unless Dir.exist?('../exports')
 
 new_book.write('../exports/test.xls')
 
