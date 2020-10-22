@@ -21,5 +21,4 @@ describe Scraper do
       my_scrapper.show_stats
     end
   end
-
 end

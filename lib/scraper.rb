@@ -9,16 +9,19 @@ require '../lib/enumerable.rb'
 # require './main_logic.rb'
 
 class Scraper
-  attr_reader :doc, :shipping
-  attr_accessor :price
+  attr_reader :doc, :price, :shipping, :title, :item_condition, :pur_option, :images, :other_info
+
   def initialize(search, lh_fs, cust, price_low, price_high, item_cond = 0)
     base_url = 'https://www.ebay.com/sch/i.html?_ipg=200'
     cust_search = "&LH_ItemCondition=#{item_cond}&LH_FS=#{lh_fs}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}"
     standard_search = '&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15'
     keywords = "&_nkw=#{search}"
-    min_max_price = "&_udlo=#{price_low}&_udhi=#{price_high}"
     url = (cust == 1 ? base_url.concat(cust_search, keywords) : base_url.concat(standard_search, keywords))
     @doc = Nokogiri::HTML(URI.open(url))
+    @other_info = @doc.xpath("//div[@class='s-item__subtitle']").map(&:text)
+    @images = @doc.xpath("//img[@class='s-item__image-img']").map { |el| el['src'] }
+    @item_condition = @doc.xpath("//span[@class='SECONDARY_INFO']").map(&:text)
+    @title = @doc.xpath("//h3[@class='s-item__title']").map(&:text)
   end
 
   def show_stats
@@ -27,6 +30,17 @@ class Scraper
     show_7_number_summary(data)
     puts 'A histogram of the data is shown: '
     plot_histogram(data)
+  end
+
+  def return_data
+    price = price_arr
+    ship = shipping_arr
+    title = title_arr
+    i_condition = item_condition
+    pur_option = purchase_options
+    images = item_images
+    other = other_info
+    return price, ship, title, i_condition, pur_option, images, other
   end
 
   private
@@ -43,29 +57,9 @@ class Scraper
     return clean_data(@shipping).map(&:to_f)
   end
 
-  def title_arr(doc)
-    @title = doc.xpath("//h3[@class='s-item__title']")
-    return @title.map(&:text)
-  end
-
-  def item_condition(doc)
-    @item_condition = doc.xpath("//span[@class='SECONDARY_INFO']")
-    return @item_condition.map(&:text)
-  end
-
-  def purchase_options(doc)
-    @pur_options = doc.xpath("//span[@class='s-item__purchase-options-with-icon']")
+  def purchase_options
+    @pur_options = @doc.xpath("//span[@class='s-item__purchase-options-with-icon']")
     return @pur_options.map { |el| el = (el.text.include?('!') ? 'Buy it now' : 'Best offer') }
-  end
-
-  def item_images(doc)
-    @images = doc.xpath("//img[@class='s-item__image-img']")
-    return @images.map { |el| el['src'] }
-  end
-
-  def other_info(doc)
-    @other_info = doc.xpath("//div[@class='s-item__subtitle']")
-    return @other_info.map(&:text)
   end
 
   def price_and_shipping

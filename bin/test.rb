@@ -1,8 +1,13 @@
 require 'nokogiri'
 require 'open-uri'
+require 'cgi'
 
+my_test = 'brother printer'
+encoded = CGI.escape(my_test)
+puts encoded
 # url = 'https://www.ebay.com/sch/i.html?_ipg=200&_nkw=computer'
 # doc = Nokogiri::HTML(URI.open(url))
+=begin
 class Scrappy
   attr_accessor :doc, :price
   def initialize
@@ -20,6 +25,7 @@ class Scrappy
     return data.map { |el| el.text.delete!('^0-9.') }
   end
 end
+=end
 
 =begin
 def price_arr(doc)
@@ -84,6 +90,6 @@ testing.map { |el| el.delete!('^0-9.') }
 # puts testing
 =end
 
-my_scraper = Scrappy.new
-puts my_scraper.price_arr
+# my_scraper = Scrappy.new
+# puts my_scraper.price_arr
 # puts my_scraper.attributes
