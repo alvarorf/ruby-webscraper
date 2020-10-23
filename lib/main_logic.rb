@@ -74,7 +74,7 @@ class MainLogic
       puts 'Please enter a valid minimum price(>=0)'
       min_price = gets.chomp
     end
-    return CGI.escape(min_price)
+    return min_price
   end
 
   def validate_max_price
@@ -84,11 +84,27 @@ class MainLogic
       puts 'Please enter a valid maximum price(>0)'
       max_price = gets.chomp
     end
-    return CGI.escape(max_price)
+    return max_price
   end
 
   def customized_search(cust)
     delivery_option = 0, item_condition = 0, min_price = 0, max_price = 999_999_999
+    unless cust.zero?
+      print 'Do you wish to specify a delivery option (0 or empty: Any, 1: Free shipping)? '
+      delivery_option = validate_delivery_options(gets.chomp).to_i
+      puts 'Do you wish to search according to a specific item condition?'
+      print "(0 or empty: To skip, 1: New, 2: Open-box, 3: Certified Refurbished, 4: Seller Refurbished, \n"
+      print '5: Used, 6: Damaged, 7: Not specified ) '
+      item_condition = validate_item_condition(gets.chomp).to_i
+      print 'Do you wish to specify a price range?(0 or empty: To skip, 1 or y: Yes)'
+      price_range_choice = gets.chomp.to_i
+      choice_price_range = validate_price_range_choice(price_range_choice)
+      ops = [1, 'y']
+      if ops.include?(choice_price_range)
+        min_price = validate_min_price
+        max_price = validate_max_price
+      end
+    end
     return delivery_option, item_condition, min_price, max_price
   end
 end

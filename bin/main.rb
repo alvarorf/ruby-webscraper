@@ -18,6 +18,7 @@ loop do
     search_obj = Scraper.new(search, lh_fs = 0, cust = 0, item_cond = 0, price_low = 0, price_high = 999_999_999)
   else
     lh_fs, lh_item_condition, min_price, max_price = logic.map_customized_options(cust)
+    puts "Hey, HERERRR, min_price was: #{min_price}"
     search_obj = Scraper.new(search, lh_fs, lh_item_condition, min_price, max_price)
   end
   search_obj.show_stats
@@ -25,7 +26,7 @@ loop do
   exp = gets.chomp.to_i
   if exp == 1
     new_export = Export.new(search_obj)
-    new_export.export_data
+    new_export.export_data(exp)
   end
   puts 'Would you like to perform another search? (O or else: No, 1: Yes)'
   ans = gets.chomp.to_i

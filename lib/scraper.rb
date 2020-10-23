@@ -8,7 +8,7 @@ class Scraper
   attr_reader :doc, :price, :shipping, :title, :item_condition, :pur_option, :images, :other_info
 
   def initialize(search, lh_fs, cust, price_low, price_high, item_cond = 0)
-    base_url = 'https://www.ebay.com/sch/i.html?_ipg=200'
+    base_url = 'https://www.ebay.com/sch/i.html?_ipg=200&_sacat=0'
     cust_search = "&LH_ItemCondition=#{item_cond}&LH_FS=#{lh_fs}&_sop=15&_udlo=#{price_low}&_udhi=#{price_high}"
     standard_search = '&LH_ItemCondition=0|1000|1500|2000|2500|3000|7000&LH_FS=0&_sop=15'
     keywords = "&_nkw=#{search}"
