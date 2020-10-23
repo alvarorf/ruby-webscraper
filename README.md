@@ -4,8 +4,13 @@
 
 > Welcome to my **Ebay Ruby Web scraper** built mainly with `Ruby` and `Nokogiri`, but also using `Rspec`, `Simplecov` for testing and the `spreadsheet` for exporting to an excel file. Please enjoy and leave a comment.
 
-The basic idea of the project is to collect data from www.ebay.com, based on the user's suggested keywords, and perform a basic statistical analysis (min, max, standard deviation, quartile 1, quartile 3, median, mean, and a histogram).
-After the analysis is finished and its results showed on the screen, the user is prompted to 'export' the data (in .xls format), if he/she wishes to do so, for further processing in some other statistical software.
+The basic idea of the project is to collect data from www.ebay.com, based on the user's suggested keywords, and perform a basic statistical analysis on the pricing data (min, max, standard deviation, quartile 1, quartile 3, median, mean, and a histogram).
+After the analysis is finished and its results are showed on the screen, the user is prompted to 'export' the data (in .xls format), if he/she wishes to do so, for further processing in some other statistical software.
+
+As for the statistical analysis, it is performed in the `Enumerable` module, from `/lib/enumerable`. In here, I have three functions:
+- `mean`: Which will return the mean of an Array.
+- `find_perc(perc)`: This is used several times to find the first quartile (Q1, `find_perc(0.25)`), the median (Q2, `find_perc(0.5)`) and the third quartile (Q3, `find_perc(0.75)`). Each quartile returns a value which represents that specific quartile. So, for instance for Q1, if `find_perc(0.25)` returns 100000, it means that 25% of the data in that specific array are to the left or below 100000.
+- `sample_stdev`: It is the square root of the variance. It is a measure of the dispersion of the data. The higher the value returned, the higher the dispersion in the data. So, for instance `[1, 1, 1, 1].sample_stdev` will return zero because, since all of the elements are the same, variance in the data is zero (therefore its square root, the standard deviation, will also be zero).
 
 ### Built With
 
