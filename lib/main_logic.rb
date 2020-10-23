@@ -89,6 +89,16 @@ class MainLogic
 
   def customized_search(cust)
     delivery_option = 0, item_condition = 0, min_price = 0, max_price = 999_999_999
+    return delivery_option, item_condition, min_price, max_price
+  end
+
+  def processing
+    puts 'Processing the data...'
+    sleep(2.0)
+  end
+end
+
+
 =begin
     unless cust == 0
       print 'Do you wish to specify a delivery option (0 or empty: Any, 1: Free shipping)?'
@@ -106,25 +116,3 @@ class MainLogic
       end
     end
 =end
-    return delivery_option, item_condition, min_price, max_price
-  end
-
-  def export_handler
-    print 'Would you like to export the results of this session?(0 or another character: No, 1: Yes) '
-    exp = gets.chomp.to_i
-    if exp == 1
-      puts 'Collect data'
-      puts 'Save data'
-      ext = 'csv'
-      puts "The data has been saved in exports/results.#{ext}"
-    end
-  end
-
-  def processing
-    puts 'Processing the data...'
-    sleep(2.0)
-  end
-end
-
-my_log = MainLogic.new
-puts my_log.map_customized_options(0)

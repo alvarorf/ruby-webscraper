@@ -4,10 +4,6 @@ require 'open-uri'
 require 'histogram/array'
 require '../lib/enumerable.rb'
 
-# require 'ascii_charts'
-# require './enumerable.rb'
-# require './main_logic.rb'
-
 class Scraper
   attr_reader :doc, :price, :shipping, :title, :item_condition, :pur_option, :images, :other_info
 
@@ -18,7 +14,6 @@ class Scraper
     keywords = "&_nkw=#{search}"
     url = (cust == 1 ? base_url.concat(cust_search, keywords) : base_url.concat(standard_search, keywords))
     @doc = Nokogiri::HTML(URI.open(url))
-    @other_info = @doc.xpath("//div[@class='s-item__subtitle']").map(&:text)
     @images = @doc.xpath("//img[@class='s-item__image-img']").map { |el| el['src'] }
     @item_condition = @doc.xpath("//span[@class='SECONDARY_INFO']").map(&:text)
     @title = @doc.xpath("//h3[@class='s-item__title']").map(&:text)
@@ -35,12 +30,9 @@ class Scraper
   def return_data
     price = price_arr
     ship = shipping_arr
-    title = title_arr
     i_condition = item_condition
     pur_option = purchase_options
-    images = item_images
-    other = other_info
-    return price, ship, title, i_condition, pur_option, images, other
+    return price, ship, @title, i_condition, pur_option, @images
   end
 
   private
