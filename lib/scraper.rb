@@ -2,7 +2,7 @@ require 'ascii_charts'
 require 'nokogiri'
 require 'open-uri'
 require 'histogram/array'
-require '../lib/enumerable.rb'
+require_relative '../lib/enumerable.rb'
 
 class Scraper
   attr_reader :doc, :price, :shipping, :title, :item_condition, :pur_option, :images, :other_info

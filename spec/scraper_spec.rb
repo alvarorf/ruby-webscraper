@@ -1,4 +1,4 @@
-require '../lib/scraper.rb'
+require_relative '../lib/scraper.rb'
 
 describe Scraper do
   describe '#initialize' do

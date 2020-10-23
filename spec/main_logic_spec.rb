@@ -1,4 +1,4 @@
-require '../lib/main_logic.rb'
+require_relative '../lib/main_logic.rb'
 
 describe MainLogic do
   describe '#map_customized_options' do

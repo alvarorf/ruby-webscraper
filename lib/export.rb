@@ -1,7 +1,6 @@
 require 'spreadsheet'
 require 'stringio'
-
-require '../lib/scraper.rb'
+require_relative '../lib/scraper.rb'
 
 class Export
   attr_reader :price, :ship, :title, :i_condition, :pur_option, :images

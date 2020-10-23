@@ -1,9 +1,9 @@
 require 'cgi'
 require 'nokogiri'
 require 'open-uri'
-require '../lib/main_logic.rb'
-require '../lib/scraper.rb'
-require '../lib/export.rb'
+require_relative '../lib/main_logic.rb'
+require_relative '../lib/scraper.rb'
+require_relative '../lib/export.rb'
 
 puts 'Welcome to my Ebay Web Scraper.'
 loop do
