@@ -1,5 +1,7 @@
 # Ebay Webscraper
 
+![screenshot](/images/screenshot.png)
+
 > Welcome to my **Ebay Ruby Web scraper** built mainly with `Ruby` and `Nokogiri`, but also using `Rspec`, `Simplecov` for testing and the `spreadsheet` for exporting to an excel file. Please enjoy and leave a comment.
 
 The basic idea of the project is to collect data from www.ebay.com, based on the user's suggested keywords, and perform a basic statistical analysis (min, max, standard deviation, quartile 1, quartile 3, median, mean, and a histogram).
@@ -47,9 +49,3 @@ Give a ⭐️ if you like this project!
 ### 📝 License
 
 This project is for microverse course purposes.
-
-
-### Screenshots:
-
-## Main CLI:
-![screenshot](/images/screenshot.png)

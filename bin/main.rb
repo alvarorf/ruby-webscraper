@@ -27,7 +27,7 @@ loop do
     new_export = Export.new(search_obj)
     new_export.export_data(exp)
   end
-  puts 'Would you like to perform another search? (O or else: No, 1: Yes)'
+  print 'Would you like to perform another search? (O or else: No, 1: Yes) '
   ans = gets.chomp.to_i
   break unless ops.include?(ans)
 end
