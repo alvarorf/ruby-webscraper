@@ -51,4 +51,4 @@ This project is for microverse course purposes.
 ### Screenshots:
 
 ## Main CLI:
-![screenshot](screenshot.png)
+![screenshot](/images/screenshot.png)
