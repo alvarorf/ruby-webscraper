@@ -43,5 +43,4 @@ class Export
     Dir.mkdir('../exports') unless Dir.exist?('../exports')
     new_book.write('../exports/results.xls')
   end
-
 end

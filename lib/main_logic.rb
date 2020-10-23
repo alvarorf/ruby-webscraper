@@ -97,22 +97,3 @@ class MainLogic
     sleep(2.0)
   end
 end
-
-
-=begin
-    unless cust == 0
-      print 'Do you wish to specify a delivery option (0 or empty: Any, 1: Free shipping)?'
-      delivery_option = validate_delivery_options(gets.chomp).to_i
-      puts 'Do you wish to search according to a specific item condition?'
-      print "(0 or empty: To skip, 1: New, 2: Open-box, 3: Certified Refurbished, 4: Seller Refurbished, \n"
-      puts '5: Used, 6: Damaged, 7: Not specified )'
-      item_condition = validate_item_condition(gets.chomp).to_i
-      puts 'Do you wish to specify a price range?(0 or empty: To skip, 1 or y: Yes)'
-      choice_price_range = validate_price_range_choice(price_range_choice = gets.chomp)
-      ops = [1, 'y']
-      if ops.include?(choice_price_range)
-        min_price = validate_min_price
-        max_price = validate_max_price
-      end
-    end
-=end
