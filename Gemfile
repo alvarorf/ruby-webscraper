@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.7.1'
 gem 'ascii-charts'
-gem 'csv', '3.1.7'
 gem 'histogram'
 gem 'nokogiri', '1.10.10'
 gem 'open-uri'

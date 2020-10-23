@@ -23,9 +23,9 @@ describe Scraper do
   end
 
   describe '#return_data' do
-  it 'should return 6 variables' do
-    my_scrapper = Scraper.new('computer', lh_fs = 0, cust = 0, item_cond = 0, price_low = 0, price_high = 999_999_999)
-    expect(my_scrapper.return_data.count).to eq(6)
+    it 'should return 6 variables' do
+      my_scrapper = Scraper.new('computer', lh_fs = 0, cust = 0, item_cond = 0, price_low = 0, price_high = 999_999_999)
+      expect(my_scrapper.return_data.count).to eq(6)
+    end
   end
-end
 end

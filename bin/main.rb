@@ -21,7 +21,13 @@ loop do
     search_obj = Scraper.new(search, lh_fs, lh_item_condition, min_price, max_price)
   end
   search_obj.show_stats
-  new_export = Export.new(search_obj)
-  ans = new_export.user_interaction
+  print 'Would you like to export the results of this session?(0 or another character: No, 1: Yes) '
+  exp = gets.chomp.to_i
+  if exp == 1
+    new_export = Export.new(search_obj)
+    new_export.export_data
+  end
+  puts 'Would you like to perform another search? (O or else: No, 1: Yes)'
+  ans = gets.chomp.to_i
   break unless ops.include?(ans)
 end

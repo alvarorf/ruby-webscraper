@@ -91,9 +91,4 @@ class MainLogic
     delivery_option = 0, item_condition = 0, min_price = 0, max_price = 999_999_999
     return delivery_option, item_condition, min_price, max_price
   end
-
-  def processing
-    puts 'Processing the data...'
-    sleep(2.0)
-  end
 end

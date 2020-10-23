@@ -1,5 +1,6 @@
 require 'spreadsheet'
-require 'csv'
+require 'stringio'
+
 require '../lib/scraper.rb'
 
 class Export
@@ -8,18 +9,17 @@ class Export
     @price, @ship, @title, @i_condition, @pur_option, @images = scraper_instance.return_data
   end
 
-  def user_interaction
-    print 'Would you like to export the results of this session?(0 or another character: No, 1: Yes) '
-    exp = gets.chomp.to_i
+  def export_data(exp)
     if exp == 1
       prepare_data
       insert_data
       puts 'The data has been saved in exports/results.xls'
+      return 1
     end
-    puts 'Would you like to perform another search? (O or else: No, 1: Yes)'
-    reply = gets.chomp
-    return reply.to_i
+    return 0
   end
+
+  private
 
   def prepare_data
     @tags = %w[prices shipping item_name item_condition purchase_options image]
