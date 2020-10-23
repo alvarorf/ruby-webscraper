@@ -24,7 +24,7 @@ class MainLogic
       print 'Please enter a valid search string (non-empty and length >= 3): '
       keywords = gets.chomp
     end
-    return CGI.escape(keywords)
+    CGI.escape(keywords)
   end
 
   def validate_search_type(search_type)
@@ -33,7 +33,7 @@ class MainLogic
       print 'Please enter a valid search type. 0: Standard 1: Customized'
       search_type = gets.chomp
     end
-    return search_type
+    search_type
   end
 
   private
@@ -44,7 +44,7 @@ class MainLogic
       print 'Please enter a valid option. (0: to skip this step. 1: No free shipping, 2: Free shipping) '
       del_option = gets.chomp
     end
-    return del_option
+    del_option
   end
 
   def validate_item_condition(item_cond_option)
@@ -54,7 +54,7 @@ class MainLogic
       puts '(1: New, 2:Used, 3: Certified Refurbished, 4: Seller Refurbished, 5: Other or not specified )'
       item_cond_option = gets.chomp
     end
-    return item_cond_option
+    item_cond_option
   end
 
   def validate_price_range_choice(price_range_choice)
@@ -64,7 +64,7 @@ class MainLogic
       puts 'Do you wish to specify a price range?(0 or empty: To skip, 1 or y: Yes)'
       price_range_choice = gets.chomp
     end
-    return price_range_choice
+    price_range_choice
   end
 
   def validate_min_price
@@ -74,7 +74,7 @@ class MainLogic
       puts 'Please enter a valid minimum price(>=0)'
       min_price = gets.chomp
     end
-    return min_price
+    min_price
   end
 
   def validate_max_price
@@ -84,7 +84,7 @@ class MainLogic
       puts 'Please enter a valid maximum price(>0)'
       max_price = gets.chomp
     end
-    return max_price
+    max_price
   end
 
   def customized_search(cust)

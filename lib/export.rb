@@ -13,9 +13,9 @@ class Export
       prepare_data
       insert_data
       puts 'The data has been saved in exports/results.xls'
-      return 1
+      1
     end
-    return 0
+    0
   end
 
   private

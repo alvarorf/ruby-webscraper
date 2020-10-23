@@ -40,34 +40,34 @@ class Scraper
   def price_arr
     @price = @doc.xpath("//span[@class='s-item__price']")
     @price = @price.map(&:text)
-    return clean_data(@price).map(&:to_f)
+    clean_data(@price).map(&:to_f)
   end
 
   def shipping_arr
     @shipping = @doc.xpath("//span[@class='s-item__shipping s-item__logisticsCost']")
     @shipping = @shipping.map(&:text)
-    return clean_data(@shipping).map(&:to_f)
+    clean_data(@shipping).map(&:to_f)
   end
 
   def purchase_options
     @pur_options = @doc.xpath("//span[@class='s-item__purchase-options-with-icon']")
-    return @pur_options.map { |el| el = (el.text.include?('!') ? 'Buy it now' : 'Best offer') }
+    @pur_options.map { |el| el = (el.text.include?('!') ? 'Buy it now' : 'Best offer') }
   end
 
   def price_and_shipping
     @price = price_arr
     @shipping = shipping_arr
-    return @price.zip(@shipping.cycle).map(&:sum)
+    @price.zip(@shipping.cycle).map(&:sum)
   end
 
   def clean_data(data)
-    return data.map { |el| el.delete('^0-9.') }
+    data.map { |el| el.delete('^0-9.') }
   end
 
   def prepare_histogram_array(bins, freqs)
     bins = bins.map { |el| el.round(1) }
     freqs = freqs.map { |el| el.round(1) }
-    return bins.zip(freqs)
+    bins.zip(freqs)
   end
 
   def show_7_number_summary(data)

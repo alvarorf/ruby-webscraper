@@ -1,6 +1,6 @@
 module Enumerable
   def mean
-    return sum / length
+    sum / length
   end
 
   def find_perc(perc)
@@ -15,6 +15,6 @@ module Enumerable
     sum_squares = 0
     each { |el| sum_squares += (el - x)**2 }
     sample_variance = sum_squares / (length - 1)
-    return Math.sqrt(sample_variance)
+    Math.sqrt(sample_variance)
   end
 end
