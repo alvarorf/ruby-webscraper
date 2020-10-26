@@ -1,4 +1,4 @@
-require '../lib/enumerable.rb'
+require_relative '../lib/enumerable.rb'
 describe Enumerable do
   describe '#mean' do
     let(:new_arr) { [1, 6, 8, 10, 15] }

@@ -30,7 +30,7 @@ Assuming that `Bundler` is installed, you can continue with the following steps:
 - Step 2: Open the project folder where the repository was downloaded. Once you are in that folder, open a terminal and make sure that it will be opened in that specific folder.
 - Step 3: Once you are in the terminal, just type in: `bundle install`. This will install the required dependencies for this project.
 - Step 4: Now, you can just run the project. Just move (or `cd`) into the bin folder (from within the terminal), and type in: `ruby main.rb`.
-- Step 5 (Optional): To test the project
+- Step 5 (Optional): To test the project (assuming that you already followed the previous steps and Rspec is installed), and after moving (or ) `cd`) into the root project folder, type in: `rspec --format documentation`
 
 ### Author
 
